@@ -151,6 +151,8 @@ export default function combineReducers(reducers: ReducersMapObject) {
     // @ts-ignore
     shapeAssertionError = e
   }
+  // 是否是第一次初始化
+  let mount = true
   // 初始化时 会出发一次该函数
   // 之后就是每一次dispatch会触发
   return function combination(
@@ -190,6 +192,8 @@ export default function combineReducers(reducers: ReducersMapObject) {
       const reducer = finalReducers[key]
       // 找出该reducer对应的state
       const previousStateForKey = state[key]
+      // @ts-ignore
+      console.log(reducer.prototype.getActionList)
       // 带上该state 调用reducer
       const nextStateForKey = reducer(previousStateForKey, action, dispatch)
       // 再次判断reducer的返回值
