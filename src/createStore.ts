@@ -83,7 +83,6 @@ export default function createStore<S, A extends Action, Ext = {}, StateExt = ne
   let nextListeners = currentListeners
   // 是否在进行更新
   let isDispatching = false
-
   /**
    * This makes a shallow copy of currentListeners so we can use
    * nextListeners as a temporary list while dispatching.

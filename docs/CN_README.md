@@ -20,6 +20,6 @@ or
 
 ## Solved what?
 
-- `reducer 即 `actionHandler` **(createReducer API)**
+- `reducer` 即 `actionHandler` 也是 `dispatchHandler` **(createReducer API)**
 
 - 减少 `redux` 内部没必要的**更新**

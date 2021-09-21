@@ -20,9 +20,9 @@ or
 
 ## Solved what?
 
-- `reducer is `actionHandler`**(createReducer API])**
+- `reducer` is `actionHandler` and `dispatchHandler` **(createReducer API])**
 
-- Reduce unnecessary **updates** inside `redux`
+- `reduce` unnecessary **updates** inside `redux`
 
 [中文](/docs/CN_README.md)
 

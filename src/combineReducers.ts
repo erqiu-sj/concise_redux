@@ -190,10 +190,12 @@ export default function combineReducers(reducers: ReducersMapObject) {
       const key = finalReducerKeys[i]
       // 在reducerlist中找出对应的reducer handler
       const reducer = finalReducers[key]
+      if (!mount) {
+        // 当前action不存在该reducer的所有action中, 表示该reducer与这次update无关
+        if (!(reducer.prototype.getActionList as string[]).includes(action.type)) continue
+      }
       // 找出该reducer对应的state
       const previousStateForKey = state[key]
-      // @ts-ignore
-      console.log(reducer.prototype.getActionList)
       // 带上该state 调用reducer
       const nextStateForKey = reducer(previousStateForKey, action, dispatch)
       // 再次判断reducer的返回值
@@ -210,8 +212,10 @@ export default function combineReducers(reducers: ReducersMapObject) {
       // 通过判断当前reducer的返回值是否等于传入的state判断是否change
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey
     }
+    mount = false
     hasChanged = hasChanged || finalReducerKeys.length !== Object.keys(state).length
     // 是否change，没有change则直接返回state
-    return hasChanged ? nextState : state
+    // return hasChanged ? nextState : state
+    return hasChanged ? Object.assign({}, state, nextState) : state
   }
 }

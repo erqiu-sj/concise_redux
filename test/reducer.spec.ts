@@ -1,8 +1,10 @@
 import { combineReducers, CreateReducer, createStore } from '../src'
+
 type countInStoreTypes = {
   name?: string
   age?: number
 }
+
 type storeResult = {
   count: countInStoreTypes
 }
