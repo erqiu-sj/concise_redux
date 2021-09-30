@@ -219,7 +219,8 @@ export default function createStore<S, A extends Action, Ext = {}, StateExt = ne
       // state = preloadedState = undefine = 每个reducer的state默认值
       // currentState 初始化 === { reducerKey: reducerDefaultValue }
       // TODO: 如何在此处传入dispatch？
-      currentState = currentReducer(currentState, action, dispatch as Dispatch)
+      currentReducer.prototype.dispatch = dispatch
+      currentState = currentReducer(currentState, action, dispatch as Dispatch, getState)
     } finally {
       isDispatching = false
     }

@@ -19,9 +19,14 @@ const count = new CreateReducer<{ name: string; age: number }, { resetName: stri
   .addAction('resetAge', (state, action) => {
     return { ...state, age: action?.resetAge || 18 }
   })
+  .setReducerKey('count')
+const finish = count.finish()
+
+const multiplication = new CreateReducer({ name: 'multiplication ' })
 const store = createStore(
   combineReducers({
-    count: count.finish(),
+    count: finish,
+    multiplication: multiplication.finish(),
   })
 )
 
@@ -30,16 +35,24 @@ afterAll(() => {
 })
 
 it('init', () => {
-  expect(JSON.stringify(store.getState())).toBe(JSON.stringify({ count: { name: 'qsj', age: 19 } } as storeResult))
+  expect(JSON.stringify(store.getState())).toBe(
+    JSON.stringify({
+      count: { name: 'qsj', age: 19 },
+      multiplication: { name: 'multiplication ' },
+    } as storeResult)
+  )
 })
 
 it('resetName', () => {
   count.dispatcher('resetName', { resetName: 'awesome' })
   const storeResult: storeResult = store.getState()
-
   expect(storeResult.count).toStrictEqual(
     expect.objectContaining({
       name: 'awesome',
     } as countInStoreTypes)
   )
+})
+
+it('getCurState', () => {
+  expect(count.getCurState()).toStrictEqual({ name: 'awesome', age: 19 })
 })

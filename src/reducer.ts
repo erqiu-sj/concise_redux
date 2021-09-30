@@ -10,7 +10,9 @@ export class CreateReducer<S, A, L extends string> {
   private reducerObj: object
   private state: S
   private dispatch: Dispatch<Action & A> | undefined
+  private getState: (() => S) | undefined
   private actionList: string[]
+  private reducerKey: string | undefined
   constructor(state: S) {
     this.state = state
     this.reducerObj = {}
@@ -29,9 +31,17 @@ export class CreateReducer<S, A, L extends string> {
   private setDispatch(dispatch: Dispatch<Action & A>) {
     this.dispatch = dispatch
   }
+  private setGetState(getState: () => S) {
+    this.getState = getState
+  }
+  setReducerKey(key: string): this {
+    this.reducerKey = key
+    return this
+  }
   finish(): Reducer<S, Action & A> {
-    const ret = (State: S = this.state, action: Action & A, dispatch?: Dispatch<Action & A>) => {
+    const ret = (State: S = this.state, action: Action & A, dispatch?: Dispatch<Action & A>, getState?: () => S) => {
       dispatch && this.setDispatch(dispatch)
+      getState && this.setGetState(getState)
       const fn = Reflect.get(this.reducerObj, action.type)
       if (typeof fn === 'function') return fn.call(null, State, action)
       return State
@@ -53,5 +63,11 @@ export class CreateReducer<S, A, L extends string> {
     // @ts-ignore
     else stateHandler = states
     bindActionCreators(() => ({ type: actions, ...stateHandler }), this.dispatch as any)()
+  }
+  getCurState(): S {
+    if (!this.getState) return this.state
+    // @ts-ignore
+    if (this.reducerKey) return this.getState()[this.reducerKey]
+    return this.getState()
   }
 }

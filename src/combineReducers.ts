@@ -160,7 +160,8 @@ export default function combineReducers(reducers: ReducersMapObject) {
     state: StateFromReducersMapObject<typeof reducers> = {},
     // actions
     action: AnyAction,
-    dispatch?: any
+    dispatch?: any,
+    getState?: any
   ) {
     // 断言是否出错
     if (shapeAssertionError) {
@@ -197,7 +198,7 @@ export default function combineReducers(reducers: ReducersMapObject) {
       // 找出该reducer对应的state
       const previousStateForKey = state[key]
       // 带上该state 调用reducer
-      const nextStateForKey = reducer(previousStateForKey, action, dispatch)
+      const nextStateForKey = reducer(previousStateForKey, action, dispatch, getState)
       // 再次判断reducer的返回值
       if (typeof nextStateForKey === 'undefined') {
         const actionType = action && action.type

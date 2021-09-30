@@ -28,7 +28,7 @@ import { Action, AnyAction } from './actions'
  * @template A The type of actions the reducer can potentially respond to.
  */
 // TODO: 应不应该修改reducer的定义？
-export type Reducer<S = any, A extends Action = AnyAction> = (state: S | undefined, action: A, dispatch?: Dispatch<A>) => S
+export type Reducer<S = any, A extends Action = AnyAction> = (state: S | undefined, action: A, dispatch?: Dispatch<A>, getState?: () => S) => S
 
 /**
  * Object whose values correspond to different reducer functions.
