@@ -13,7 +13,9 @@ const count = new CreateReducer<{ name: string; age: number }, { resetName: stri
   })
   .addAction('resetAge', (state, action) => {
     return { ...state, age: action?.resetAge || 18 }
-  })
+  }
+  // Find out the value that can be count in state! wow! awesome!
+  .setReducerKey('count')
 
 const store = createStore(
   combineReducers({
@@ -27,4 +29,5 @@ console.log(store.getState()) // { count: { name: "qsj", age: 19 } }
 count.dispatcher('resetName', { resetName: 'awesome' })
 
 console.log(store.getState()) // { count: { name: "awesome", age: 19 } }
+console.log(count.getCurState()) // { name: "awesome", age: 19 }
 ```

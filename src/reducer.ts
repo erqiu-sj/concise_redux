@@ -67,7 +67,16 @@ export class CreateReducer<S, A, L extends string> {
   getCurState(): S {
     if (!this.getState) return this.state
     // @ts-ignore
-    if (this.reducerKey) return this.getState()[this.reducerKey]
+    if (this.reducerKey) {
+      const state = this.getState()
+      if (typeof state !== 'object') return state
+      if (Reflect.has(state as unknown as object, this.reducerKey)) {
+        // @ts-ignore
+        return state[this.reducerKey]
+      }
+      return state
+      // return this.getState()[this.reducerKey]
+    }
     return this.getState()
   }
 }

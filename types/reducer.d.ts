@@ -11,4 +11,7 @@ export class CreateReducer<S, A, L extends string> {
   private setDispatch(dispatch: Dispatch<Action & A>): void
   finish(): Reducer<S, Action & A>
   dispatcher(actions: L, states?: Partial<A> | stateHandlerType<S, Partial<A>> | undefined): void
+  getCurState(): S
+  setReducerKey(key: string): this
+  private setGetState(getState: () => S)
 }
