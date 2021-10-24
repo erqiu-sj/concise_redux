@@ -1,7 +1,7 @@
-import { Dispatch, Reducer, bindActionCreators, ActionCreator } from './index'
+import { Dispatch, Reducer, bindActionCreators } from './index'
 import { Action } from './types/actions'
 
-type Partial<T> = {
+export type Partial<T> = {
   [P in keyof T]?: T[P]
 }
 
@@ -19,6 +19,7 @@ export class CreateReducer<S, A, L extends string> {
     this.actionList = []
   }
 
+  // addAction(action: L, handler: (state: S, action: Partial<Action & A>) => S): this {
   addAction(action: L, handler: (state: S, action: Partial<Action & A>) => S): this {
     if (Reflect.has(this.reducerObj, action)) throw new Error('The action exists')
     this.actionList.push(action)
