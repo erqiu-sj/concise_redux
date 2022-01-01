@@ -63,13 +63,13 @@ export type CombinedState<S> = EmptyObject & S
  */
 export type PreloadedState<S> = Required<S> extends EmptyObject
   ? S extends CombinedState<infer S1>
-    ? {
-        [K in keyof S1]?: S1[K] extends object ? PreloadedState<S1[K]> : S1[K]
-      }
-    : never
+  ? {
+    [K in keyof S1]?: S1[K] extends object ? PreloadedState<S1[K]> : S1[K]
+  }
+  : never
   : {
-      [K in keyof S]: S[K] extends string | number | boolean | symbol ? S[K] : PreloadedState<S[K]>
-    }
+    [K in keyof S]: S[K] extends string | number | boolean | symbol ? S[K] : PreloadedState<S[K]>
+  }
 
 /* reducers */
 
@@ -124,8 +124,8 @@ export type ReducerFromReducersMapObject<M> = M extends {
   [P in keyof M]: infer R
 }
   ? R extends Reducer<any, any>
-    ? R
-    : never
+  ? R
+  : never
   : never
 
 /**
@@ -559,7 +559,12 @@ export function compose<R>(f1: (b: any) => R, ...funcs: Function[]): (...args: a
 
 export function compose<R>(...funcs: Function[]): (...args: any[]) => R
 type stateHandlerType<S, A> = (state: S) => A
+type dispatchHandler<A> = (action: A) => A
+type dispatchHandleWithReactTypes<A, L extends string> = {
+  [k in L]: dispatchHandler<A>
+}
 
+export type getAllValsWithActionCollectionHepler<T> = T extends { [key in string]: infer K } ? K : never
 export class CreateReducer<S, A, L extends string> {
   constructor(state: S)
   addAction(action: L, handler: (state: S, action: Partial<Action & A>) => S): this
@@ -570,4 +575,6 @@ export class CreateReducer<S, A, L extends string> {
   getCurState(): S
   setReducerKey(key: string): this
   private setGetState(getState: () => S)
+  private addDispatchHandleWithReact(): void
+  getCallBackAll(): dispatchHandleWithReactTypes<A, L>
 }

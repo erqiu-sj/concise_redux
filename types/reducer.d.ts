@@ -4,6 +4,11 @@ import { Action } from './types/actions'
 
 type stateHandlerType<S, A> = (state: S) => A
 
+type dispatchHandler<A> = (action: A) => A
+type dispatchHandleWithReactTypes<A, L extends string> = {
+  [k in L]: dispatchHandler<A>
+}
+export type getAllValsWithActionCollectionHepler<T> = T extends { [key in string]: infer K } ? K : never
 export class CreateReducer<S, A, L extends string> {
   constructor(state: S)
   addAction(action: L, handler: (state: S, action: Partial<Action & A>) => S): this
@@ -14,4 +19,6 @@ export class CreateReducer<S, A, L extends string> {
   getCurState(): S
   setReducerKey(key: string): this
   private setGetState(getState: () => S)
+  private addDispatchHandleWithReact(): void
+  getCallBackAll(): dispatchHandleWithReactTypes<A, L>
 }

@@ -42,7 +42,7 @@ export class CreateReducer<S, A, L extends string> {
     return this
   }
 
-  addDispatchHandleWithReact(action: L) {
+  private addDispatchHandleWithReact(action: L) {
     Reflect.set(this.dispatchHandleWithReact, action, (actionType: A) => {
       return { type: action, ...actionType }
     })
