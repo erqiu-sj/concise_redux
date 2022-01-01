@@ -306,12 +306,18 @@ export default function createStore<S, A extends Action, Ext = {}, StateExt = ne
   // the initial state tree.
   // 初始化时会执行一次 dispatch
   dispatch({ type: ActionTypes.INIT } as A)
-
+  /**
+   * TODO: 0
+   * @description 组合dispatch
+   * @example combinationDispatch('reduerKey' , 'action' , payload)
+   */
+  function combinationDispatch() {}
   const store = {
     dispatch: dispatch as Dispatch<A>,
     subscribe,
     getState,
     replaceReducer,
+    combinationDispatch,
     [$$observable]: observable,
   } as unknown as Store<ExtendState<S, StateExt>, A, StateExt, Ext> & Ext
   return store

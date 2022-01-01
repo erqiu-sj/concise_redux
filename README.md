@@ -26,4 +26,6 @@ or
 
 [中文](/docs/CN_README.md)
 
-[createReducer API](/docs/createReducer.md)
+[createReducer API With Redux](/docs/createReducer.md)
+
+[createReducer API With React](/docs/createReducer.md)

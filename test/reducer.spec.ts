@@ -1,4 +1,4 @@
-import { combineReducers, CreateReducer, createStore } from '../src'
+import { combineReducers, CreateReducer, createStore, getAllValsWithActionCollectionHepler } from '../src'
 
 type countInStoreTypes = {
   name?: string
@@ -8,8 +8,21 @@ type countInStoreTypes = {
 type storeResult = {
   count: countInStoreTypes
 }
+const action = {
+  RESET_NAME: 'resetName',
+  RESET_AGE: "resetAge",
+  RESET: 'reset'
+}
 
-const count = new CreateReducer<{ name: string; age: number }, { resetName: string; resetAge: number }, 'resetName' | 'resetAge' | 'reset'>({ name: 'qsj', age: 19 })
+type actionTypes = getAllValsWithActionCollectionHepler<typeof action>
+type State = {
+  name: string; age: number
+}
+
+type actionPayload = {
+  resetName?: string; resetAge?: number
+}
+const count = new CreateReducer<State, actionPayload, actionTypes>({ name: 'qsj', age: 19 })
   .addAction('reset', () => {
     return { name: 'qsj', age: 19 }
   })
@@ -56,3 +69,15 @@ it('resetName', () => {
 it('getCurState', () => {
   expect(count.getCurState()).toStrictEqual({ name: 'awesome', age: 19 })
 })
+
+it('getCallBackAll Return value', () => {
+  expect(
+    count.getCallBackAll()
+  ).toBeInstanceOf(Object)
+
+  expect(
+    count.getCallBackAll().resetAge({ resetName: 'haha' })
+  ).toStrictEqual({ type: 'resetAge', resetName: 'haha' })
+})
+
+

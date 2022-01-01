@@ -1,4 +1,6 @@
-## CreateReducer with redux
+# CreateReducer with react
+
+## create constant
 
 ```ts
 // constant.ts
@@ -7,7 +9,10 @@ export const RESET_AGE = 'resetAge'
 export const RESET = 'reset'
 ```
 
+## create reducer
+
 ```ts
+// store.ts
 import { CreateReducer , getAllValsWithActionCollectionHepler } from '@zealforchange/conciseredux'
 import * as actions from './constant'
 // or
@@ -20,13 +25,11 @@ import * as actions from './constant'
  * type actionTypes =  getAllValsWithActionCollectionHepler<typeof h> // reset | resetAge | resetName
  *
  */
-
-
 type actionTypes =  getAllValsWithActionCollectionHepler<typeof actions> // reset | resetAge | resetName
-type State =  { name: string; age: number }
+export type State =  { name: string; age: number }
 type actionPayloadTypes = { resetName: string; resetAge: number }
 //  new CreateReducer<State,Action,ActionType>
-const count = new CreateReducer<State, actionPayloadTypes, actionTypes>({ name: 'qsj', age: 19 })
+export const count = new CreateReducer<State, actionPayloadTypes, actionTypes>({ name: 'qsj', age: 19 })
   .addAction('reset', () => {
     return { name: 'qsj', age: 19 }
   })
@@ -46,10 +49,37 @@ const store = createStore(
   })
 )
 console.log(store.getState()) // { count: { name: "qsj", age: 19 } }
+```
 
-// There will be the type hints you want!
-count.dispatcher('resetName', { resetName: 'awesome' })
+## package hooks
 
-console.log(store.getState()) // { count: { name: "awesome", age: 19 } }
-console.log(count.getCurState()) // { name: "awesome", age: 19 }
+```ts
+// useCount.ts
+import { useDispatch, useSelector } from 'react-redux'
+import { count, State } from './store.ts'
+import { getAllValsWithActionCollectionHepler, bindActionCreators } from '@zealforchange/conciseredux'
+export function useCount() {
+  const dispatcher = bindActionCreators(count.getCallBackAll(), useDispatch())
+  const curStateForRedux = count.getCurState()
+  const curState = useSelector((state: { count: State }) => {
+    return state.count
+  })
+  return [dispatcher, curState, curStateForRedux]
+}
+```
+
+## Use in components
+
+```tsx
+import { FC , useEffect } from 'react'
+import { useCount } from './useCount'
+type Props = {}
+const CountCpm: FC<Props> = () => {
+    const [dispatch,curState] = useCount()
+    useEffect(() => {
+     dispatch.resetAge({ resetAge: 12 })
+    },[])
+    // The initial value is 19, but the page will be rendered as 12 after useEffect is updated
+    return <>{curState.age}<>
+}
 ```
