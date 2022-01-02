@@ -28,4 +28,4 @@ or
 
 [createReducer API With Redux](/docs/createReducer.md)
 
-[createReducer API With React](/docs/createReducer.md)
+[createReducer API With React](/docs/createReducerWithReact.md)
