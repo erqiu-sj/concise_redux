@@ -58,3 +58,19 @@ Create a hooks file directory for reducer-related hooks files
 ```
 The key is reducerName The content of the array element is the action constant of the reducer
 ```
+
+# use
+
+```json
+{
+  "script": {
+    "c": "conciseredux -h"
+  }
+}
+```
+
+```shell
+yarn run c
+or
+npm run c
+```
