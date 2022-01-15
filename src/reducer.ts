@@ -5,7 +5,7 @@ export type Partial<T> = {
   [P in keyof T]?: T[P]
 }
 
-export type getAllValsWithActionCollectionHepler<T> = T extends { [key in string]: infer K } ? K : never
+export type getAllValsWithActionCollectionHelper<T> = T extends { [key in string]: infer K } ? K : never
 
 export type addActionParamsHandler<S, A> = (staet: S, action: Partial<Action & A>) => S
 

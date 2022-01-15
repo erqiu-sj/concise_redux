@@ -1,4 +1,4 @@
-import { combineReducers, CreateReducer, createStore, getAllValsWithActionCollectionHepler } from '../src'
+import { combineReducers, CreateReducer, createStore, getAllValsWithActionCollectionHelper } from '../src'
 
 type countInStoreTypes = {
   name?: string
@@ -14,7 +14,7 @@ const action = {
   RESET: 'reset'
 }
 
-type actionTypes = getAllValsWithActionCollectionHepler<typeof action>
+type actionTypes = getAllValsWithActionCollectionHelper<typeof action>
 type State = {
   name: string; age: number
 }

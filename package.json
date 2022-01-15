@@ -2,6 +2,9 @@
   "name": "@zealforchange/conciseredux",
   "version": "1.0.4",
   "description": "",
+  "bin": {
+    "create": "/dist/main"
+  },
   "main": "/dist/index.js",
   "module": "/lib/index.js",
   "scripts": {

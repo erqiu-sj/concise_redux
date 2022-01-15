@@ -13,7 +13,7 @@ export const RESET = 'reset'
 
 ```ts
 // store.ts
-import { CreateReducer , getAllValsWithActionCollectionHepler } from '@zealforchange/conciseredux'
+import { CreateReducer , getAllValsWithActionCollectionHelper } from '@zealforchange/conciseredux'
 import * as actions from './constant'
 // or
 /**
@@ -22,10 +22,10 @@ import * as actions from './constant'
  *  RESET_AGE: 'resetAge',
  *  RESET: 'reset'
  * }
- * type actionTypes =  getAllValsWithActionCollectionHepler<typeof h> // reset | resetAge | resetName
+ * type actionTypes =  getAllValsWithActionCollectionHelper<typeof h> // reset | resetAge | resetName
  *
  */
-type actionTypes =  getAllValsWithActionCollectionHepler<typeof actions> // reset | resetAge | resetName
+type actionTypes =  getAllValsWithActionCollectionHelper<typeof actions> // reset | resetAge | resetName
 export type State =  { name: string; age: number }
 type actionPayloadTypes = { resetName: string; resetAge: number }
 //  new CreateReducer<State,Action,ActionType>
@@ -57,7 +57,7 @@ console.log(store.getState()) // { count: { name: "qsj", age: 19 } }
 // useCount.ts
 import { useDispatch, useSelector } from 'react-redux'
 import { count, State } from './store.ts'
-import { getAllValsWithActionCollectionHepler, bindActionCreators } from '@zealforchange/conciseredux'
+import { getAllValsWithActionCollectionHelper, bindActionCreators } from '@zealforchange/conciseredux'
 export function useCount() {
   const dispatcher = bindActionCreators(count.getCallBackAll(), useDispatch())
   const curStateForRedux = count.getCurState()

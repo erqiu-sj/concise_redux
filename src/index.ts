@@ -19,7 +19,7 @@ export { MiddlewareAPI, Middleware } from './types/middleware'
 // actions
 export { Action, AnyAction } from './types/actions'
 // other
-export { CreateReducer, getAllValsWithActionCollectionHepler } from './reducer'
+export { CreateReducer, getAllValsWithActionCollectionHelper } from './reducer'
 /*
  * This is a dummy function to check if the function name has been altered by minification.
  * If the function has been minified and NODE_ENV !== 'production', warn the user.

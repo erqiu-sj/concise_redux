@@ -8,7 +8,7 @@ export const RESET = 'reset'
 ```
 
 ```ts
-import { CreateReducer , getAllValsWithActionCollectionHepler } from '@zealforchange/conciseredux'
+import { CreateReducer , getAllValsWithActionCollectionHelper } from '@zealforchange/conciseredux'
 import * as actions from './constant'
 // or
 /**
@@ -17,12 +17,12 @@ import * as actions from './constant'
  *  RESET_AGE: 'resetAge',
  *  RESET: 'reset'
  * }
- * type actionTypes =  getAllValsWithActionCollectionHepler<typeof h> // reset | resetAge | resetName
+ * type actionTypes =  getAllValsWithActionCollectionHelper<typeof h> // reset | resetAge | resetName
  *
  */
 
 
-type actionTypes =  getAllValsWithActionCollectionHepler<typeof actions> // reset | resetAge | resetName
+type actionTypes =  getAllValsWithActionCollectionHelper<typeof actions> // reset | resetAge | resetName
 type State =  { name: string; age: number }
 type actionPayloadTypes = { resetName: string; resetAge: number }
 //  new CreateReducer<State,Action,ActionType>
