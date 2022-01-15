@@ -29,3 +29,5 @@ or
 [createReducer API With Redux](/docs/createReducer.md)
 
 [createReducer API With React](/docs/createReducerWithReact.md)
+
+[tool](/docs/cli.md)
